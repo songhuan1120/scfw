@@ -6,23 +6,10 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka
 
-#info:
-#  build:
-#    artifactId: @project.artifactId@
-#    version: @project.version@
-
 ---
 server:
-  port: 8001
+  port: 9001
 spring:
-  profiles: user1
+#  profiles: movie1
   application:
-    name: micro-user
-
----
-server:
-  port: 8002
-spring:
-  profiles: user2
-  application:
-    name: micro-user
+    name: micro-movie

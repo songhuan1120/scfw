@@ -1,4 +1,4 @@
-package huan11.song.microservicemovie.entity;
+package huan11.song.microservicecommon.model;
 
 public class User {
     private int id;

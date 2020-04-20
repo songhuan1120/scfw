@@ -8,8 +8,8 @@ eureka:
 
 #info:
 #  build:
-#    artifactId: @project.artifactId@
-#    version: @project.version@
+#    artifactId: microservice-user
+#    version: 0.0.1-SNAPSHOT
 
 ---
 server:
