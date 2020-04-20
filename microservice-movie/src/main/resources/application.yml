@@ -1,3 +1,15 @@
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    hostname: eureka1
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka
+
+---
 server:
-  # 指定Tomcat端口
-  port: 8001
+  port: 9001
+spring:
+#  profiles: movie1
+  application:
+    name: micro-movie

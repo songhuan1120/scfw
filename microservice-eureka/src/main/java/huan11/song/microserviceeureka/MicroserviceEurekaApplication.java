@@ -10,11 +10,6 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableEurekaServer
 public class MicroserviceEurekaApplication {
-
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
 	public static void main(String[] args) {
 		SpringApplication.run(MicroserviceEurekaApplication.class, args);
 	}
