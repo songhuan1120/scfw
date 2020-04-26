@@ -17,7 +17,7 @@ server:
 spring:
   profiles: user1
   application:
-    name: micro-user
+    name: micro-user-v1
 
 ---
 server:

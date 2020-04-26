@@ -6,6 +6,18 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka
 
+#management.endpoints.web.exposure.include: hystrix.stream
+
+#zuul:
+#  ignoredServices: '*'
+#  routes:
+#    micro-user: /muser/**
+zuul:
+  routes:
+    users:
+      path: /muser/**
+      serviceId: micro-user
+
 ---
 server:
   port: 9001
@@ -13,3 +25,4 @@ spring:
 #  profiles: movie1
   application:
     name: micro-movie
+
