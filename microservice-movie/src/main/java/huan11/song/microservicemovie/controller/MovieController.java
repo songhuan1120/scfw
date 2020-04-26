@@ -1,5 +1,7 @@
 package huan11.song.microservicemovie.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.ribbon.proxy.annotation.Hystrix;
 import huan11.song.microservicecommon.client.user.UserClient;
 import huan11.song.microservicecommon.model.User;
 import huan11.song.microservicecommon.utils.JsonUtil;
@@ -27,17 +29,26 @@ public class MovieController {
 ////    @LoadBalanced
 //    private RestTemplate restTemplate;
 
-    @Autowired
-    private UserClient userClient;
-
-    @GetMapping("/user/find/{id}")
-    public User findRandomUserById(@PathVariable Integer id) {
-//        ServiceInstance instance = loadBalancerClient.choose("micro-user");
-//        User user = restTemplate.getForObject("http://micro-user/user/find/{id}",User.class,id);
-        User user = userClient.findUserById(id);
-        System.out.println("movie获取到的user："+ JsonUtil.parseJsonStr(user));
-        return user;
-    }
+//    @Autowired
+//    private UserClient userClient;
+//
+//    @GetMapping("/user/find/{id}")
+//    @HystrixCommand(fallbackMethod = "defaultStores")
+//    public User findRandomUserById(@PathVariable Integer id) {
+////        ServiceInstance instance = loadBalancerClient.choose("micro-user");
+////        User user = restTemplate.getForObject("http://micro-user/user/find/{id}",User.class,id);
+//        User user = userClient.findUserById(id);
+//        System.out.println("movie获取到的user："+ JsonUtil.parseJsonStr(user));
+//        return user;
+//    }
+//
+//    public User defaultStores(@PathVariable Integer id) {
+//        User defaultUser = new User();
+//        defaultUser.setId(0);
+//        defaultUser.setName("默认用户");
+//        defaultUser.setNickname("默认nick");
+//        return defaultUser;
+//    }
 
 //    @GetMapping("/user/find/{id}/default")
 //    public User findDefaultUserById(@PathVariable Integer id) {

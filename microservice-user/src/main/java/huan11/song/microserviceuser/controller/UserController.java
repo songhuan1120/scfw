@@ -38,4 +38,20 @@ public class UserController {
         System.out.println("获取User："+ JsonUtil.parseJsonStr(user));
         return user;
     }
+
+    @GetMapping("find/admin/{id}")
+    public User findAdminUser(@PathVariable Integer id) {
+        User user = new User();
+        if (id == 1) {
+            user.setId(1);
+            user.setName("name1");
+            user.setNickname("nickname1");
+        } else {
+            user.setId(2);
+            user.setName("name2");
+            user.setNickname("nickname2");
+        }
+        System.out.println("获取User："+ JsonUtil.parseJsonStr(user));
+        return user;
+    }
 }
