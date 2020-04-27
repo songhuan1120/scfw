@@ -1,6 +1,6 @@
 
 server:
-  port: 8761
+  port: 8000
 eureka:
   instance:
 #    preferIpAddress: true
@@ -18,7 +18,7 @@ spring:
 #    name: eureka-standalone
 #---
 #server:
-#  port: 8761
+#  port: 8000
 #spring:
 #  profiles: eureka1
 #  application:

@@ -4,7 +4,7 @@ eureka:
     hostname: eureka1
   client:
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka
+      defaultZone: http://${eureka.instance.hostname}:8000/eureka
 
 #management.endpoints.web.exposure.include: hystrix.stream
 
@@ -12,11 +12,11 @@ eureka:
 #  ignoredServices: '*'
 #  routes:
 #    micro-user: /muser/**
-zuul:
-  routes:
-    users:
-      path: /muser/**
-      serviceId: micro-user
+#zuul:
+#  routes:
+#    users:
+#      path: /muser/**
+#      serviceId: micro-user
 
 ---
 server:

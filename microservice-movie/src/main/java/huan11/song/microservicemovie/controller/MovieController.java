@@ -6,6 +6,7 @@ import huan11.song.microservicecommon.client.user.UserClient;
 import huan11.song.microservicecommon.model.User;
 import huan11.song.microservicecommon.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -24,6 +25,9 @@ public class MovieController {
 
     @Autowired
     private LoadBalancerClient loadBalancerClient;
+
+    @Value("${test.testName}")
+    private String name;
 //
 //    @Autowired
 ////    @LoadBalanced
@@ -73,5 +77,10 @@ public class MovieController {
         System.out.println("serviceId：" + serviceId);
         System.out.println("uri：" + uri);
         System.out.println("storesUri：" + storesUri);
+    }
+
+    @GetMapping("test")
+    public String test() {
+        return name;
     }
 }

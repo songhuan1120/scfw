@@ -1,7 +1,7 @@
 
 ---
 server:
-  port: 8761
+  port: 8000
 spring:
   profiles: eureka1
   application:

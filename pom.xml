@@ -20,6 +20,7 @@
 		<spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
 		<spring-cloud-openfeign.version>2.1.0.RELEASE</spring-cloud-openfeign.version>
 		<spring-cloud-netflix.version>2.1.0.RELEASE</spring-cloud-netflix.version>
+		<spring-cloud-config.version>2.1.0.RELEASE</spring-cloud-config.version>
 		<druid.version>1.0.31</druid.version>
 
 	</properties>
