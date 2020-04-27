@@ -54,4 +54,11 @@ public class UserController {
         System.out.println("获取User："+ JsonUtil.parseJsonStr(user));
         return user;
     }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "请登录111";
+    }
+
+
 }
