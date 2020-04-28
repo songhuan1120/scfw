@@ -26,11 +26,15 @@
 	</properties>
 
 	<modules>
-		<module>microservice-movie</module>
+		<module>eureka</module>
+		<module>gateway</module>
+		<module>configserver</module>
+		<module>user</module>
+
+		<!--<module>microservice-movie</module>
 		<module>microservice-user</module>
-		<module>microservice-eureka</module>
 		<module>microservice-common</module>
-		<module>micro-gateway</module>
+		<module>micro-gateway</module>-->
 	</modules>
 
 	<dependencyManagement>

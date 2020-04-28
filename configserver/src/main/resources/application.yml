@@ -1,19 +1,18 @@
 server:
-  port: 9006
+  port: 10020
 eureka:
   instance:
     instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
-    hostname: eureka1
+    hostname: localhost
   client:
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8000/eureka
+      defaultZone: http://${eureka.instance.hostname}:10010/eureka
 spring:
   cloud:
     config:
       server:
         native:
-          search-locations: classpath:config
-#          addLabelLocations: false
+          search-locations: classpath:/config/,classpath:/config/gateway
   application:
     name: configserver
   profiles:
@@ -24,4 +23,3 @@ management:
     web:
       exposure:
         include: "*"
-

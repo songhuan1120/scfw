@@ -8,20 +8,15 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <groupId>cn.tjhyyt</groupId>
-    <artifactId>configserver</artifactId>
+    <artifactId>eureka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>configserver</name>
-    <description>configserver</description>
+    <name>eureka</name>
+    <description>eureka</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
     </dependencies>
 
