@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tjhyyt.user.mapper.PermissionMapper">
+
+    <select id="getPermissionById" resultType="cn.tjhyyt.common.model.dao.Permission">
+        select
+                permission_id as permissionId,
+                permission_name as permissionName,
+                des as des,
+                create_account as createAccount,
+                create_time as createTime
+        from permission
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getPermissionListByMap" resultType="cn.tjhyyt.common.model.dao.Permission" parameterType="java.util.Map">
+        select
+                permission_id as permissionId,
+                permission_name as permissionName,
+                des as des,
+                create_account as createAccount,
+                create_time as createTime
+        from permission
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="permissionId != null and permissionId!=''">
+                    and permission_id=#{permissionId}
+                </if>
+                <if test="permissionName != null and permissionName!=''">
+                    and permission_name=#{permissionName}
+                </if>
+                <if test="des != null and des!=''">
+                    and des=#{des}
+                </if>
+                <if test="createAccount != null and createAccount!=''">
+                    and create_account=#{createAccount}
+                </if>
+                <if test="createTime != null and createTime!=''">
+                    and create_time=#{createTime}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getPermissionCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from permission
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="permissionId != null and permissionId!=''">
+                    and permission_id=#{permissionId}
+                </if>
+                <if test="permissionName != null and permissionName!=''">
+                    and permission_name=#{permissionName}
+                </if>
+                <if test="des != null and des!=''">
+                    and des=#{des}
+                </if>
+                <if test="createAccount != null and createAccount!=''">
+                    and create_account=#{createAccount}
+                </if>
+                <if test="createTime != null and createTime!=''">
+                    and create_time=#{createTime}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertPermission" parameterType="cn.tjhyyt.common.model.dao.Permission">
+        insert into permission(
+                        permission_id,
+                        permission_name,
+                        des,
+                        create_account,
+                        create_time)
+        values(
+                     #{permissionId},
+                     #{permissionName},
+                     #{des},
+                     #{createAccount},
+                    #{createTime})
+    </insert>
+
+    <update id="updatePermission" parameterType="cn.tjhyyt.common.model.dao.Permission">
+        update permission
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="permissionId != null and permissionId!=''">
+                            permission_id=#{permissionId},
+                        </if>
+                        <if test="permissionName != null and permissionName!=''">
+                            permission_name=#{permissionName},
+                        </if>
+                        <if test="des != null and des!=''">
+                            des=#{des},
+                        </if>
+                        <if test="createAccount != null and createAccount!=''">
+                            create_account=#{createAccount},
+                        </if>
+                        <if test="createTime != null and createTime!=''">
+                            create_time=#{createTime}
+                        </if>
+        </trim>
+    </update>
+</mapper>

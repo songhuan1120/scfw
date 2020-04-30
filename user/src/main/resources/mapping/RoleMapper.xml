@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tjhyyt.user.mapper.RoleMapper">
+
+    <select id="getRoleById" resultType="cn.tjhyyt.common.model.dao.Role">
+        select
+                role_id as roleId,
+                role_name as roleName,
+                create_account as createAccount,
+                create_time as createTime,
+                des as des
+        from role
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getRoleListByMap" resultType="cn.tjhyyt.common.model.dao.Role" parameterType="java.util.Map">
+        select
+                role_id as roleId,
+                role_name as roleName,
+                create_account as createAccount,
+                create_time as createTime,
+                des as des
+        from role
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="roleId != null and roleId!=''">
+                    and role_id=#{roleId}
+                </if>
+                <if test="roleName != null and roleName!=''">
+                    and role_name=#{roleName}
+                </if>
+                <if test="createAccount != null and createAccount!=''">
+                    and create_account=#{createAccount}
+                </if>
+                <if test="createTime != null and createTime!=''">
+                    and create_time=#{createTime}
+                </if>
+                <if test="des != null and des!=''">
+                    and des=#{des}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getRoleCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from role
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="roleId != null and roleId!=''">
+                    and role_id=#{roleId}
+                </if>
+                <if test="roleName != null and roleName!=''">
+                    and role_name=#{roleName}
+                </if>
+                <if test="createAccount != null and createAccount!=''">
+                    and create_account=#{createAccount}
+                </if>
+                <if test="createTime != null and createTime!=''">
+                    and create_time=#{createTime}
+                </if>
+                <if test="des != null and des!=''">
+                    and des=#{des}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertRole" parameterType="cn.tjhyyt.common.model.dao.Role">
+        insert into role(
+                        role_id,
+                        role_name,
+                        create_account,
+                        create_time,
+                        des)
+        values(
+                     #{roleId},
+                     #{roleName},
+                     #{createAccount},
+                     #{createTime},
+                    #{des})
+    </insert>
+
+    <update id="updateRole" parameterType="cn.tjhyyt.common.model.dao.Role">
+        update role
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="roleId != null and roleId!=''">
+                            role_id=#{roleId},
+                        </if>
+                        <if test="roleName != null and roleName!=''">
+                            role_name=#{roleName},
+                        </if>
+                        <if test="createAccount != null and createAccount!=''">
+                            create_account=#{createAccount},
+                        </if>
+                        <if test="createTime != null and createTime!=''">
+                            create_time=#{createTime},
+                        </if>
+                        <if test="des != null and des!=''">
+                            des=#{des}
+                        </if>
+        </trim>
+    </update>
+</mapper>
