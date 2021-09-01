@@ -15,6 +15,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>2.3.6.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>2.5.4</version>
+        </dependency>
+
+        <dependency>
             <groupId>cn.tjhyyt</groupId>
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>

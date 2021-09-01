@@ -31,10 +31,6 @@
 		<module>configserver</module>
 		<module>user</module>
 		<module>common</module>
-		<!--<module>microservice-movie</module>
-		<module>microservice-user</module>
-		<module>microservice-common</module>
-		<module>micro-gateway</module>-->
 	</modules>
 
 	<dependencyManagement>

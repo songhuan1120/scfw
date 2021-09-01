@@ -11,6 +11,12 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
+import org.springframework.security.access.intercept.AfterInvocationManager;
+import org.springframework.security.access.vote.AuthenticatedVoter;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,6 +49,7 @@ public class TestController {
     @RequestMapping("/login/user")
     public String loginUser(@RequestParam("userAccount") String userAccount,
                             @RequestParam("password") String password) {
+
         UsernamePasswordToken token = new UsernamePasswordToken(userAccount, password);
         //User test = userMapper.test(1l);
         //User userPermission = userService.getPermissionById(1l);
