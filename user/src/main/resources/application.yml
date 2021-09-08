@@ -6,6 +6,9 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:10010/eureka
 
+security
+  env: 1
+
 server:
   port: 8001
 spring:
@@ -17,11 +20,13 @@ spring:
     #    username: tds
     #    password: tds1234%
     validationQuery: SELECT 1 FROM DUAL
-    #  url: jdbc:mysql://localhost:3306/mtload?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    url: jdbc:mysql://49.233.197.213:3306/hyyt-test?serverTimezone=GMT%2B8&characterEncoding=utf-8&rewriteBatchedStatements=true
+    url: jdbc:mysql://localhost:3306/security?serverTimezone=GMT%2B8&characterEncoding=utf-8&rewriteBatchedStatements=true
+#    url: jdbc:mysql://49.233.197.213:3306/hyyt-test?serverTimezone=GMT%2B8&characterEncoding=utf-8&rewriteBatchedStatements=true
     driverClassName:
-    username: hyyttest
-    password: hyyttest
+    username: root
+    password: 123456
+#    username: hyyttest
+#    password: hyyttest
     type: com.alibaba.druid.pool.DruidDataSource
     platform: mysql
     # 下面为连接池的补充设置，应用到上面所有数据源中
@@ -50,17 +55,17 @@ spring:
     useGlobalDataSourceStat: true
     maxOpenPreparedStatements: 20
     filters: stat,wall,SLF4j
-mybatis:
-  mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: cn.tjhyyt.common.model.dao
-  configuration:
-    map-underscore-to-camel-case: true
+#mybatis:
+#  mapper-locations: classpath:mapping/*.xml
+#  type-aliases-package: cn.tjhyyt.common.model.dao
+#  configuration:
+#    map-underscore-to-camel-case: true
 
-#jwt配置
-dhb:
-  jwt:
-    # 加密秘钥
-    secret: f4e2e52034348f86b67cde581c0f9eb5
-    # token有效时长，7天，单位秒
-    expire: 604800
-    header: authorization
+##jwt配置
+#dhb:
+#  jwt:
+#    # 加密秘钥
+#    secret: f4e2e52034348f86b67cde581c0f9eb5
+#    # token有效时长，7天，单位秒
+#    expire: 604800
+#    header: authorization

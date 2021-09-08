@@ -2,7 +2,6 @@ package cn.tjhyyt.user.service.impl;
 
 
 import cn.tjhyyt.common.model.dao.Resource;
-import cn.tjhyyt.user.mapper.ResourceMapper;
 import cn.tjhyyt.user.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

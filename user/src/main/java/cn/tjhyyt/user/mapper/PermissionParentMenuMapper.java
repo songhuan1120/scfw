@@ -1,6 +1,6 @@
 package cn.tjhyyt.user.mapper;
 
-import cn.tjhyyt.user.entity.UserRole;
+import cn.tjhyyt.user.entity.PermissionParentMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author songhuan
  * @since 2021-09-07
  */
-public interface UserRoleMapper extends BaseMapper<UserRole> {
+public interface PermissionParentMenuMapper extends BaseMapper<PermissionParentMenu> {
 
 }

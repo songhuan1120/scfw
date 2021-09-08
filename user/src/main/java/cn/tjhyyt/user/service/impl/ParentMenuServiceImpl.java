@@ -1,8 +1,8 @@
 package cn.tjhyyt.user.service.impl;
 
-import cn.tjhyyt.user.entity.User;
-import cn.tjhyyt.user.mapper.UserMapper;
-import cn.tjhyyt.user.service.UserService;
+import cn.tjhyyt.user.entity.ParentMenu;
+import cn.tjhyyt.user.mapper.ParentMenuMapper;
+import cn.tjhyyt.user.service.ParentMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2021-09-07
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class ParentMenuServiceImpl extends ServiceImpl<ParentMenuMapper, ParentMenu> implements ParentMenuService {
 
 }

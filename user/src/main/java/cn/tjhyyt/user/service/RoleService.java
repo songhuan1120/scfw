@@ -1,6 +1,6 @@
 package cn.tjhyyt.user.service;
 
-import cn.tjhyyt.user.entity.User;
+import cn.tjhyyt.user.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author songhuan
  * @since 2021-09-07
  */
-public interface UserService extends IService<User> {
+public interface RoleService extends IService<Role> {
 
 }

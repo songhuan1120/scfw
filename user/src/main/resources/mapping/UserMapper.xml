@@ -1,159 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tjhyyt.user.mapper.UserMapper">
-    <resultMap id="userMap" type="cn.tjhyyt.common.model.dao.User">
-        <id property="userId" column="user_id" />
-        <result property="userName" column="user_name" />
-        <result property="password" column="password" />
-        <collection property="roleSet" ofType="cn.tjhyyt.common.model.dao.Role">
-            <id property="roleId" column="role_id" />
-            <result property="roleName" column="role_name" />
-            <collection property="permissionSet" ofType="cn.tjhyyt.common.model.dao.Permission">
-                <id property="permissionId" column="permission_id" />
-                <result property="permissionName" column="permission_name"/>
-            </collection>
-        </collection>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.tjhyyt.user.entity.User">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="user_no" property="userNo" />
+        <result column="password" property="password" />
     </resultMap>
 
-    <select id="getPermissionById" resultMap="userMap">
-      SELECT u.user_id , u.user_name,
-      r.role_id,r.role_name,
-      p.permission_id,p.permission_name
-      FROM user u
-        INNER JOIN user_role ur on ur.user_id = u.user_id
-        INNER JOIN role r on r.role_id = ur.role_id
-        INNER JOIN role_permission pr on pr.role_id = r.role_id
-        INNER JOIN permission p on pr.permission_id = p.permission_id
-      WHERE u.user_id = #{userId}
-    </select>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_name, user_no, password
+    </sql>
 
-    <select id="getUserById" resultType="cn.tjhyyt.common.model.dao.User">
-        select
-                user_id as userId,
-                user_name as userName,
-                user_account as userAccount,
-                password as password,
-                create_account as createAccount,
-                create_time as createTime,
-                is_valid as isValid
-        from user
-        <trim prefix="where" prefixOverrides="and | or">
-            <if test="id != null">
-                and id=#{id}
-            </if>
-        </trim>
-    </select>
-
-    <select id="getUserListByMap" resultType="cn.tjhyyt.common.model.dao.User" parameterType="java.util.Map">
-        select
-                user_id as userId,
-                user_name as userName,
-                user_account as userAccount,
-                password as password,
-                create_account as createAccount,
-                create_time as createTime,
-                is_valid as isValid
-        from user
-        <trim prefix="where" prefixOverrides="and | or">
-                <if test="userId != null and userId!=''">
-                    and user_id=#{userId}
-                </if>
-                <if test="userName != null and userName!=''">
-                    and user_name=#{userName}
-                </if>
-                <if test="userAccount != null and userAccount!=''">
-                    and user_account=#{userAccount}
-                </if>
-                <if test="password != null and password!=''">
-                    and password=#{password}
-                </if>
-                <if test="createAccount != null and createAccount!=''">
-                    and create_account=#{createAccount}
-                </if>
-                <if test="createTime != null and createTime!=''">
-                    and create_time=#{createTime}
-                </if>
-                <if test="isValid != null and isValid!=''">
-                    and is_valid=#{isValid}
-                </if>
-        </trim>
-        <if test="beginPos != null and pageSize != null ">
-            limit #{beginPos},#{pageSize}
-        </if>
-    </select>
-
-    <select id="getUserCountByMap" resultType="Integer"  parameterType="java.util.Map">
-        select count(*) from user
-        <trim prefix="where" prefixOverrides="and | or">
-                <if test="userId != null and userId!=''">
-                    and user_id=#{userId}
-                </if>
-                <if test="userName != null and userName!=''">
-                    and user_name=#{userName}
-                </if>
-                <if test="userAccount != null and userAccount!=''">
-                    and user_account=#{userAccount}
-                </if>
-                <if test="password != null and password!=''">
-                    and password=#{password}
-                </if>
-                <if test="createAccount != null and createAccount!=''">
-                    and create_account=#{createAccount}
-                </if>
-                <if test="createTime != null and createTime!=''">
-                    and create_time=#{createTime}
-                </if>
-                <if test="isValid != null and isValid!=''">
-                    and is_valid=#{isValid}
-                </if>
-        </trim>
-    </select>
-
-    <insert id="insertUser" parameterType="cn.tjhyyt.common.model.dao.User">
-        insert into user(
-                        user_id,
-                        user_name,
-                        user_account,
-                        password,
-                        create_account,
-                        create_time,
-                        is_valid)
-        values(
-                     #{userId},
-                     #{userName},
-                     #{userAccount},
-                     #{password},
-                     #{createAccount},
-                     #{createTime},
-                    #{isValid})
-    </insert>
-
-    <update id="updateUser" parameterType="cn.tjhyyt.common.model.dao.User">
-        update user
-        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
-                        <if test="userId != null and userId!=''">
-                            user_id=#{userId},
-                        </if>
-                        <if test="userName != null and userName!=''">
-                            user_name=#{userName},
-                        </if>
-                        <if test="userAccount != null and userAccount!=''">
-                            user_account=#{userAccount},
-                        </if>
-                        <if test="password != null and password!=''">
-                            password=#{password},
-                        </if>
-                        <if test="createAccount != null and createAccount!=''">
-                            create_account=#{createAccount},
-                        </if>
-                        <if test="createTime != null and createTime!=''">
-                            create_time=#{createTime},
-                        </if>
-                        <if test="isValid != null and isValid!=''">
-                            is_valid=#{isValid}
-                        </if>
-        </trim>
-    </update>
 </mapper>

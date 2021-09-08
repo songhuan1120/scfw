@@ -4,19 +4,12 @@ package cn.tjhyyt.user.controller;
 
 import cn.tjhyyt.common.model.dao.User;
 import cn.tjhyyt.user.common.utli.JwtUtil;
-import cn.tjhyyt.user.mapper.UserMapper;
 import cn.tjhyyt.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDecisionManager;
-import org.springframework.security.access.AccessDecisionVoter;
-import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
-import org.springframework.security.access.intercept.AfterInvocationManager;
-import org.springframework.security.access.vote.AuthenticatedVoter;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -31,8 +24,6 @@ public class TestController {
     JwtUtil jwtUtil;
     @Autowired
     UserService userService;
-    @Autowired
-    UserMapper userMapper;
 
     /**
      * 首页

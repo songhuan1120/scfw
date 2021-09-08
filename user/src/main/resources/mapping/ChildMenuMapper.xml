@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tjhyyt.user.mapper.ChildMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.tjhyyt.user.entity.ChildMenu">
+        <id column="id" property="id" />
+        <result column="child_menu_name" property="childMenuName" />
+        <result column="child_menu_no" property="childMenuNo" />
+        <result column="parent_menu_id" property="parentMenuId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, child_menu_name, child_menu_no, parent_menu_id
+    </sql>
+
+</mapper>
