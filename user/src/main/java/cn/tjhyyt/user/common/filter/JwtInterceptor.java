@@ -9,10 +9,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component
+//@Component
 public class JwtInterceptor implements HandlerInterceptor {
-    @Autowired
-    private JwtUtil jwtUtil;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("经过了拦截器");
@@ -21,7 +19,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         String header = request.getHeader("token");
         if(header!=null && !"".equals(header)){
             try{
-                Claims claims = jwtUtil.parseToken(header);
+                Claims claims = JwtUtil.parseToken(header);
             } catch (Exception e){
                 throw new RuntimeException("令牌不正确！");
             }

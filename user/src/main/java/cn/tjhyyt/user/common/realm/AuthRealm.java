@@ -37,7 +37,8 @@ public class AuthRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         User user = (User) principals.fromRealm(this.getClass().getName()).iterator().next();
-        User userPermission = userService.getPermissionById(user.getUserId());
+//        User userPermission = userService.getPermissionById(user.getUserId());
+        User userPermission = new User();
         List<String> permissionList = new ArrayList<>();
         List<String> roleNameList = new ArrayList<>();
         Set<Role> roleSet = userPermission.getRoleSet();
@@ -65,14 +66,14 @@ public class AuthRealm extends AuthorizingRealm {
         User user=null;
         String passWord="";
         try{
-            UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
-            String username = usernamePasswordToken.getUsername();
-            List<User> userListByMap = userService.getUserListByMap(username);
-            user=new User();
-            if(!CollectionUtils.isEmpty(userListByMap)){
-                user = userListByMap.get(0);
-                passWord=user.getPassword();
-            }
+//            UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+//            String username = usernamePasswordToken.getUsername();
+//            List<User> userListByMap = userService.getUserListByMap(username);
+//            user=new User();
+//            if(!CollectionUtils.isEmpty(userListByMap)){
+//                user = userListByMap.get(0);
+//                passWord=user.getPassword();
+//            }
         }catch (Exception e){
             log.error(e.getMessage(),e);
         }

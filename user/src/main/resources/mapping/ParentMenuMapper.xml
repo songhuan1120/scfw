@@ -11,7 +11,18 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, parent_menu_name, parent_menu_no
+        m.id, m.parent_menu_name, m.parent_menu_no
     </sql>
+
+    <select id="selectMenusByPName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM
+            parent_menu m
+            INNER JOIN permission_parent_menu ppm ON m.id = ppm.parent_menu_id
+            INNER JOIN permission p ON p.id = ppm.permission_id
+        WHERE
+            p.id = 1
+    </select>
 
 </mapper>

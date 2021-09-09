@@ -3,10 +3,8 @@ package cn.tjhyyt.user.common.utli;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 
@@ -16,27 +14,23 @@ import java.util.Date;
  * @Date 2019-05-25
  * @Description: TODO
  */
-@ConfigurationProperties(prefix = "dhb.jwt")
-@Component
+@Data
+@Slf4j
 public class JwtUtil {
-    private Logger logger = LoggerFactory.getLogger(getClass());
-    private String secret;
-    private Long expire;
-    private String header;
- 
- 
+    private static String secret = "12345";
+
     /**
      *
      * 生成JWT token
      * @param userId
      * @return
      */
-    public String generateToken(Long userId) {
+    public static String generateToken(String userId) {
         Date nowDate = new Date();
-        Date expireDate = new Date(nowDate.getTime() + expire * 1000);
+        Date expireDate = new Date(nowDate.getTime() + 60*60*1000);
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setSubject(userId + "")
+                .setSubject(userId)
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
@@ -50,14 +44,14 @@ public class JwtUtil {
      * @param token
      * @return
      */
-    public Claims parseToken(String token) {
+    public static Claims parseToken(String token) {
         try {
             return Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            logger.info("解析token出错");
+            log.info("解析token出错");
             return null;
         }
     }
@@ -70,28 +64,5 @@ public class JwtUtil {
      */
     public boolean isTokenExpired(Date expiprationTime){
         return expiprationTime.before(new Date());
-    }
-    public String getSecret() {
-        return secret;
-    }
- 
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
- 
-    public Long getExpire() {
-        return expire;
-    }
- 
-    public void setExpire(Long expire) {
-        this.expire = expire;
-    }
- 
-    public String getHeader() {
-        return header;
-    }
- 
-    public void setHeader(String header) {
-        this.header = header;
     }
 }

@@ -6,6 +6,8 @@ import cn.tjhyyt.user.service.ParentMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -16,5 +18,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ParentMenuServiceImpl extends ServiceImpl<ParentMenuMapper, ParentMenu> implements ParentMenuService {
-
+    @Override
+    public List<ParentMenu> selectMenusByPName(String permissionName) {
+        return this.baseMapper.selectMenusByPName(permissionName);
+    }
 }

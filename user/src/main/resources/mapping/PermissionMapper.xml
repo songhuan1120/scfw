@@ -3,7 +3,7 @@
 <mapper namespace="cn.tjhyyt.user.mapper.PermissionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.tjhyyt.user.entity.Permission">
+    <resultMap id="PermissionResultMap" type="cn.tjhyyt.user.entity.Permission">
         <id column="id" property="id" />
         <result column="permission_name" property="permissionName" />
         <result column="permission_no" property="permissionNo" />
@@ -11,7 +11,18 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, permission_name, permission_no
+        p.id, p.permission_name, p.permission_no
     </sql>
+
+    <select id="selectPermissionsByRoleId" parameterType="java.lang.Integer" resultMap="PermissionResultMap">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM
+            permission p
+            INNER JOIN role_permission rp ON p.id = rp.permission_id
+            INNER JOIN role r ON r.id = rp.role_id
+        WHERE
+            r.id = #{roleId}
+    </select>
 
 </mapper>

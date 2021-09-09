@@ -21,10 +21,8 @@ import java.util.List;
 import java.util.Set;
 
 @Slf4j
-@Configuration
+//@Configuration
 public class ShiroConfiguration {
-    @Autowired
-    ResourceService resourceService;
 
     @Bean("shiroFilterFactoryBean")
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager manager) {
@@ -48,25 +46,25 @@ public class ShiroConfiguration {
         try{
             //加载数据库中的资源，匹配对应的权限
             //加载资源及对应的权限
-            List<Resource> resourceListByMap = resourceService.getResourceAndPermission();
-            for(Resource resource:resourceListByMap){
-                //作为拦截的k
-                String path=resource.getPath();
-                //作为拦截器的value
-                Set<Permission> permissionSet =resource.getPermissionSet();
-                //String[] roles=new String[permissionSet.size()];
-                //int i=0;
-                StringBuffer perms=new StringBuffer();
-                perms.append("perms"+"[");
-                for(Permission permission:permissionSet){
-                    perms.append(permission.getPermissionName());
-                    perms.append(",");
-                }
-                String permsStr=perms.substring(0,perms.length()-1);
-                permsStr=permsStr+"]";
-                //路径对应的权限进行配置
-                filterChainDefinitionMap.put(path, permsStr);
-            }
+//            List<Resource> resourceListByMap = resourceService.getResourceAndPermission();
+//            for(Resource resource:resourceListByMap){
+//                //作为拦截的k
+//                String path=resource.getPath();
+//                //作为拦截器的value
+//                Set<Permission> permissionSet =resource.getPermissionSet();
+//                //String[] roles=new String[permissionSet.size()];
+//                //int i=0;
+//                StringBuffer perms=new StringBuffer();
+//                perms.append("perms"+"[");
+//                for(Permission permission:permissionSet){
+//                    perms.append(permission.getPermissionName());
+//                    perms.append(",");
+//                }
+//                String permsStr=perms.substring(0,perms.length()-1);
+//                permsStr=permsStr+"]";
+//                //路径对应的权限进行配置
+//                filterChainDefinitionMap.put(path, permsStr);
+//            }
         }catch (Exception e){
             log.error(e.getMessage(),e);
         }

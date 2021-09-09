@@ -3,16 +3,37 @@
 <mapper namespace="cn.tjhyyt.user.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.tjhyyt.user.entity.User">
+    <resultMap id="UserResultMap" type="cn.tjhyyt.user.entity.User">
         <id column="id" property="id" />
         <result column="user_name" property="userName" />
         <result column="user_no" property="userNo" />
         <result column="password" property="password" />
+        <collection property="roles" javaType="ArrayList" column="id" ofType="cn.tjhyyt.user.entity.Role">
+            <id column="role_id" property="id" />
+            <result column="role_name" property="roleName" />
+            <result column="role_no" property="roleNo" />
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_name, user_no, password
+        u.id, u.user_name, u.user_no, u.password
     </sql>
+
+    <select id="selectUserAndRoleByName" parameterType="java.lang.String" resultMap="UserResultMap" >
+        SELECT
+            <include refid="Base_Column_List" />,
+            r.id role_id,
+            r.role_name role_name,
+            r.role_no role_no
+        FROM
+            role r
+            LEFT JOIN user_role ur ON r.id = ur.role_id
+            LEFT JOIN USER u ON u.id = ur.user_id
+        WHERE
+            u.user_name = 'songhuan'
+            AND u.del_flag = "0"
+    </select>
+
 
 </mapper>

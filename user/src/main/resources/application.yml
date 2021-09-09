@@ -6,7 +6,7 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:10010/eureka
 
-security
+security:
   env: 1
 
 server:
@@ -55,11 +55,11 @@ spring:
     useGlobalDataSourceStat: true
     maxOpenPreparedStatements: 20
     filters: stat,wall,SLF4j
-#mybatis:
-#  mapper-locations: classpath:mapping/*.xml
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
 #  type-aliases-package: cn.tjhyyt.common.model.dao
-#  configuration:
-#    map-underscore-to-camel-case: true
+  configuration:
+    map-underscore-to-camel-case: true
 
 ##jwt配置
 #dhb:

@@ -21,87 +21,85 @@ import java.util.Map;
 @RequestMapping(produces = "application/json; charset=utf-8")
 public class TestController {
     @Autowired
-    JwtUtil jwtUtil;
-    @Autowired
     UserService userService;
 
-    /**
-     * 首页
-     * @return
-     */
-    @RequestMapping("/login")
-    public String login() {
-        return "请登录";
-    }
-    /**
-     * 登录
-     * @return
-     */
-    @RequestMapping("/login/user")
-    public String loginUser(@RequestParam("userAccount") String userAccount,
-                            @RequestParam("password") String password) {
-
-        UsernamePasswordToken token = new UsernamePasswordToken(userAccount, password);
-        //User test = userMapper.test(1l);
-        //User userPermission = userService.getPermissionById(1l);
-        Subject subject = SecurityUtils.getSubject();
-        try {
-            subject.login(token);
-            User user = (User) subject.getPrincipal();
-            String tokenBack = jwtUtil.generateToken(user.getUserId());
-            //User user = (User) subject.getPrincipal();
-            //session.setAttribute("user", user);
-            Map<String,String> result=new HashMap<>();
-            result.put("token",tokenBack);
-            return result.toString();
-        } catch (Exception e) {
-            return "登录失败，请重新登录";
-        }
-    }
-
-    @RequestMapping("/index")
-    public String index() {
-
-        return "进入首页";
-    }
-
-
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add() {
-
-        return "进入增加";
-    }
-
-
-
-    @RequestMapping("/logout")
-    public String logout() {
-        Subject subject = SecurityUtils.getSubject();
-        if (subject != null) {
-            subject.logout();
-        }
-        return "退出";
-    }
-
-    @RequestMapping("unauthorized")
-    public String unauthorized() {
-        return "unauthorized";
-    }
-
-    @RequestMapping("/admin")
-    @ResponseBody
-    public String admin() {
-        return "admin success";
-    }
-
-    @RequestMapping("/edit")
-    @ResponseBody
-    public String edit() {
-        return "edit success";
-    }
-
-    @RequestMapping(path = "/unauthorized/{message}")
-    public String unauthorized(@PathVariable String message) throws UnsupportedEncodingException {
-        return "非法登录";
-    }
+//    /**
+//     * 首页
+//     * @return
+//     */
+//    @RequestMapping("/login")
+//    public String login() {
+//        return "请登录";
+//    }
+//    /**
+//     * 登录
+//     * @return
+//     */
+//    @RequestMapping("/login/user")
+//    public String loginUser(@RequestParam("userAccount") String userAccount,
+//                            @RequestParam("password") String password) {
+//
+//        UsernamePasswordToken token = new UsernamePasswordToken(userAccount, password);
+//        //User test = userMapper.test(1l);
+//        //User userPermission = userService.getPermissionById(1l);
+//        Subject subject = SecurityUtils.getSubject();
+//        try {
+//            subject.login(token);
+//            User user = (User) subject.getPrincipal();
+//            String tokenBack = JwtUtil.generateToken(user.getUserId()+"");
+//            //User user = (User) subject.getPrincipal();
+//            //session.setAttribute("user", user);
+//            Map<String,String> result=new HashMap<>();
+//            result.put("token",tokenBack);
+//            return result.toString();
+//        } catch (Exception e) {
+//            return "登录失败，请重新登录";
+//        }
+//    }
+//
+//    @RequestMapping("/index")
+//    public String index() {
+//
+//        return "进入首页";
+//    }
+//
+//
+//    @RequestMapping(value = "/add", method = RequestMethod.GET)
+//    public String add() {
+//
+//        return "进入增加";
+//    }
+//
+//
+//
+//    @RequestMapping("/logout")
+//    public String logout() {
+//        Subject subject = SecurityUtils.getSubject();
+//        if (subject != null) {
+//            subject.logout();
+//        }
+//        return "退出";
+//    }
+//
+//    @RequestMapping("unauthorized")
+//    public String unauthorized() {
+//        return "unauthorized";
+//    }
+//
+//    @RequestMapping("/admin")
+//    @ResponseBody
+//    public String admin() {
+//        return "admin success";
+//    }
+//
+//    @RequestMapping("/edit")
+//    @ResponseBody
+//    public String edit() {
+//        return "edit success";
+//    }
+//
+//    @RequestMapping(path = "/unauthorized/{message}")
+//    public String unauthorized(@PathVariable String message) throws UnsupportedEncodingException {
+//        return "非法登录";
+//    }
 }

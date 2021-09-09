@@ -3,7 +3,9 @@ package cn.tjhyyt.user.security.spring.domain;
 import cn.tjhyyt.user.entity.Permission;
 import cn.tjhyyt.user.entity.Role;
 import cn.tjhyyt.user.entity.User;
+import cn.tjhyyt.user.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +17,8 @@ import java.util.List;
 
 @Slf4j
 public class MyUserDetails extends User implements UserDetails {
-
     public MyUserDetails(User user) {
-        super();
+        super(user);
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -34,17 +35,14 @@ public class MyUserDetails extends User implements UserDetails {
                 }
             }
         }
-
         if (CollectionUtils.isEmpty(permissions))  {
             log.info("用户："+getUserName()+"没有任何权限");
         } else {
             for (Permission permission:permissions) {
-                authorities.add(new SimpleGrantedAuthority(permission.getPermissionName()));
+                authorities.add(new SimpleGrantedAuthority(permission.getId()+""));
             }
         }
-
-
-        return null;
+        return authorities;
     }
 
     @Override

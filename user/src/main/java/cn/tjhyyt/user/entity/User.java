@@ -8,6 +8,7 @@ import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -19,10 +20,21 @@ import lombok.experimental.Accessors;
  * @since 2021-09-07
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+//@NoArgsConstructor
+//@EqualsAndHashCode(callSuper = false)
+//@Accessors(chain = true)
 public class User implements Serializable {
+    public User() {
 
+    }
+    public User(User user) {
+        this();
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.userNo = user.getUserNo();
+        this.password = user.getPassword();
+        this.roles = user.getRoles();
+    }
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)

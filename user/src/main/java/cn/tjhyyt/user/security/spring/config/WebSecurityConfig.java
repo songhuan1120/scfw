@@ -1,9 +1,12 @@
 package cn.tjhyyt.user.security.spring.config;
 
+import cn.tjhyyt.user.anotation.SpringSecurityEnv;
 import cn.tjhyyt.user.security.spring.domain.MyAuthenticationProvider;
 import cn.tjhyyt.user.security.spring.domain.MyLoginFilter;
 import cn.tjhyyt.user.security.spring.domain.MyUserDetailsService;
-import org.springframework.beans.factory.annotation.Value;
+import cn.tjhyyt.user.service.ParentMenuService;
+import cn.tjhyyt.user.service.PermissionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,23 +20,30 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
+@SpringSecurityEnv
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
+    @Autowired
+    private ParentMenuService parentMenuService;
 
-    @Value("${jwt.head}")
-    private String head;
+    private String tokenHeader = "authorize";
+    private String head = "token";
 
-    @Value("${jwt.expired}")
-    private boolean expired;
-
-    @Value("${jwt.expiration}")
-    private int expiration;
-
-    @Value("${jwt.permitUris}")
-    private String permitUris;
+//    @Value("${jwt.tokenHeader}")
+//    private String tokenHeader;
+//
+//    @Value("${jwt.head}")
+//    private String head;
+//
+//    @Value("${jwt.expired}")
+//    private boolean expired;
+//
+//    @Value("${jwt.expiration}")
+//    private int expiration;
+//
+//    @Value("${jwt.permitUris}")
+//    private String permitUris;
 
     @Bean
     public UserDetailsService myUserDetailsService(){
@@ -66,9 +76,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers().permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new MyLoginFilter(authenticationManager(),head,tokenHeader));
+                .addFilter(new MyLoginFilter(authenticationManager(),head,tokenHeader,parentMenuService));
     }
 }
