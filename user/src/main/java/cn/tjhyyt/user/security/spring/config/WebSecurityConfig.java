@@ -1,9 +1,7 @@
 package cn.tjhyyt.user.security.spring.config;
 
 import cn.tjhyyt.user.anotation.SpringSecurityEnv;
-import cn.tjhyyt.user.security.spring.domain.MyAuthenticationProvider;
-import cn.tjhyyt.user.security.spring.domain.MyLoginFilter;
-import cn.tjhyyt.user.security.spring.domain.MyUserDetailsService;
+import cn.tjhyyt.user.security.spring.domain.*;
 import cn.tjhyyt.user.service.ParentMenuService;
 import cn.tjhyyt.user.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +77,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .addFilter(new MyLogoutFilter(new MyLogoutSuccessHandler(),new MyLogoutHandler(tokenHeader,head)))
+                .addFilter(new MyAuthenticationFilter(authenticationManager(),tokenHeader,head,new MyUserDetailsService()))
                 .addFilter(new MyLoginFilter(authenticationManager(),head,tokenHeader,parentMenuService));
     }
 }

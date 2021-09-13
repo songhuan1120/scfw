@@ -4,6 +4,8 @@ import cn.tjhyyt.user.common.utli.JwtUtil;
 import cn.tjhyyt.user.entity.ParentMenu;
 import cn.tjhyyt.user.service.ParentMenuService;
 import cn.tjhyyt.user.service.PermissionService;
+import cn.tjhyyt.user.util.ObjectMapperUtil;
+import com.alibaba.druid.support.json.JSONUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -81,6 +83,6 @@ public class MyLoginFilter extends UsernamePasswordAuthenticationFilter {
         //返回在response header 中返回token，并且返回用户可以查看的菜单数据
         response.setHeader(tokenHeader,head+token);
         response.setCharacterEncoding("utf-8");
-//        response.getWriter().write(ObjectMapperUtil.writeAsString(parentMenus));
+        response.getWriter().write(ObjectMapperUtil.toJSON(parentMenus));
     }
 }

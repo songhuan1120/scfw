@@ -62,7 +62,7 @@ public class JwtUtil {
      * @param expiprationTime
      * @return
      */
-    public boolean isTokenExpired(Date expiprationTime){
+    public static boolean isTokenExpired(Date expiprationTime){
         return expiprationTime.before(new Date());
     }
 }

@@ -16,8 +16,6 @@ import lombok.experimental.Accessors;
  * @since 2021-09-07
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class ParentMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
