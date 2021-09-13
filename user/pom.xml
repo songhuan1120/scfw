@@ -18,7 +18,7 @@
         <velocity.version>2.1</velocity.version>
         <freemarker.version>2.3.29</freemarker.version>
         <ibeetl.version>3.0.13.RELEASE</ibeetl.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencies>
