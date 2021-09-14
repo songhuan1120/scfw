@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @SpringSecurityEnv
@@ -71,14 +72,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .cors()
                 .and()
+                .exceptionHandling().accessDeniedHandler(new MyAccessDeniedHandler())
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(new MyLogoutFilter(new MyLogoutSuccessHandler(),new MyLogoutHandler(tokenHeader,head)))
-                .addFilter(new MyAuthenticationFilter(authenticationManager(),tokenHeader,head,new MyUserDetailsService()))
+                    .antMatchers("/").permitAll()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/toLogin").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("/toLogin")
+                    .and()
+                .addFilterBefore(new MyExceptionHandleFilter(), LogoutFilter.class)
                 .addFilter(new MyLoginFilter(authenticationManager(),head,tokenHeader,parentMenuService));
+                //.addFilter(new MyAuthenticationFilter(authenticationManager(),tokenHeader,head,new MyUserDetailsService()))
+                //.addFilterAfter(new MyLogoutFilter(new MyLogoutSuccessHandler(),new MyLogoutHandler(tokenHeader,head)),MyAuthenticationFilter.class);
     }
 }

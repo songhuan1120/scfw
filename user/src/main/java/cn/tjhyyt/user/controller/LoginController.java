@@ -6,13 +6,15 @@ import cn.tjhyyt.user.entity.Login;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping(produces = "application/json; charset=utf-8")
 public class LoginController {
     /**
@@ -40,5 +42,17 @@ public class LoginController {
 //        } catch (Exception e) {
 //            return "登录失败，请重新登录";
 //        }
+    }
+
+    @GetMapping("toLogin")
+    public String toLogin() {
+        System.out.println("/toLogin");
+        return "login";
+    }
+
+    @PreAuthorize("hasAuthority('p_1')")
+    @RequestMapping(value = "/authorize4",produces = MediaType.APPLICATION_JSON_VALUE)
+    public String authorize4(){
+        return "authorized success";
     }
 }

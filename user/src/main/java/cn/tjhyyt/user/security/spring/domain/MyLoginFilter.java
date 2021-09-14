@@ -81,6 +81,7 @@ public class MyLoginFilter extends UsernamePasswordAuthenticationFilter {
             }
         }
         //返回在response header 中返回token，并且返回用户可以查看的菜单数据
+        System.out.println("tokenHeader:"+tokenHeader+" token:"+head+token);
         response.setHeader(tokenHeader,head+token);
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(ObjectMapperUtil.toJSON(parentMenus));
