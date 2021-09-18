@@ -7,6 +7,7 @@ import cn.tjhyyt.user.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @SpringSecurityEnv
@@ -28,21 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private String tokenHeader = "authorize";
     private String head = "token";
-
-//    @Value("${jwt.tokenHeader}")
-//    private String tokenHeader;
-//
-//    @Value("${jwt.head}")
-//    private String head;
-//
-//    @Value("${jwt.expired}")
-//    private boolean expired;
-//
-//    @Value("${jwt.expiration}")
-//    private int expiration;
-//
-//    @Value("${jwt.permitUris}")
-//    private String permitUris;
 
     @Bean
     public UserDetailsService myUserDetailsService(){
@@ -69,24 +56,44 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("super.configure(http)");
-        http.csrf().disable()
-                .cors()
-                .and()
-                .exceptionHandling().accessDeniedHandler(new MyAccessDeniedHandler())
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/login").permitAll()
-                    .antMatchers("/toLogin").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                .formLogin()
-                    .loginPage("/toLogin")
-                    .and()
-                .addFilterBefore(new MyExceptionHandleFilter(), LogoutFilter.class)
-                .addFilter(new MyLoginFilter(authenticationManager(),head,tokenHeader,parentMenuService));
+        http.authorizeRequests()
+        //不需要身份认证
+                .antMatchers("/", "/home","/toLogin","/**/customer/**").permitAll()
+                .antMatchers("/js/**", "/css/**", "/images/**", "/fronts/**", "/doc/**", "/toLogin").permitAll()
+                .antMatchers("/user/**").hasAnyRole("USER")
+                //.hasIpAddress()//读取配置权限配置
+                .antMatchers("/**").access("hasRole('ADMIN')")
+                .anyRequest().authenticated()
+                //自定义登录界面
+                .and().formLogin().loginPage("/toLogin").loginProcessingUrl("/login").failureUrl("/toLogin?error").permitAll()
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and().exceptionHandling().accessDeniedPage("/toLogin?deny")
+                .and().httpBasic()
+                .and().sessionManagement().invalidSessionUrl("/toLogin")
+                .and().csrf().disable();
+//        http.csrf().disable()
+////                .cors()
+////                .and()
+////                .formLogin()
+////                    .loginPage("/login.html")
+////                .and()
+//                .exceptionHandling()
+//                .accessDeniedHandler(new MyAccessDeniedHandler())
+//                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                    .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+////                    .antMatchers("/").permitAll()
+//                    .antMatchers("/hi/authorize4").hasAuthority("1")
+//                    .antMatchers("/login").permitAll()
+////                    .antMatchers("/toLogin").permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+////                .addFilterBefore(new MyExceptionHandleFilter(), LogoutFilter.class)
+//                .addFilter(new MyLoginFilter(authenticationManager(),head,tokenHeader,parentMenuService));
                 //.addFilter(new MyAuthenticationFilter(authenticationManager(),tokenHeader,head,new MyUserDetailsService()))
                 //.addFilterAfter(new MyLogoutFilter(new MyLogoutSuccessHandler(),new MyLogoutHandler(tokenHeader,head)),MyAuthenticationFilter.class);
     }

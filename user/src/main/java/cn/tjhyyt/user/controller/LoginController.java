@@ -50,8 +50,8 @@ public class LoginController {
         return "login";
     }
 
-    @PreAuthorize("hasAuthority('p_1')")
-    @RequestMapping(value = "/authorize4",produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PreAuthorize("hasAuthority('p_1')")
+    @RequestMapping(value = "/hi/authorize4")
     public String authorize4(){
         return "authorized success";
     }

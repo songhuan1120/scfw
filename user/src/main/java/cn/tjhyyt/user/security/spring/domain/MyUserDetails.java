@@ -39,7 +39,7 @@ public class MyUserDetails extends User implements UserDetails {
             log.info("用户："+getUserName()+"没有任何权限");
         } else {
             for (Permission permission:permissions) {
-                authorities.add(new SimpleGrantedAuthority(permission.getId()+""));
+                authorities.add(new SimpleGrantedAuthority("role_"+permission.getId()+""));
             }
         }
         return authorities;
