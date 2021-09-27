@@ -21,7 +21,7 @@ public class LoginController {
      * 登录
      * @return
      */
-    @PostMapping("/login")
+    @PostMapping("/login1")
     public String loginUser(@RequestBody Login login) {
         System.out.println("/login");
         System.out.println("/login");
